@@ -1,5 +1,7 @@
 import { CursorSpotlight } from "@/components/motion/CursorSpotlight";
 import { GridBackdrop, NoiseOverlay } from "@/components/layout/GridBackdrop";
+import { CommandPalette } from "@/components/interactive/CommandPalette";
+import { ConsoleStrip } from "@/components/interactive/ConsoleStrip";
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -27,6 +29,8 @@ export default function HomePage() {
         <Contact />
       </main>
       <Footer />
+      <CommandPalette />
+      <ConsoleStrip />
     </>
   );
 }

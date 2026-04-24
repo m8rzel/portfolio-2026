@@ -130,10 +130,10 @@ export function SelectedWork() {
 
         <motion.div style={{ x }} className="mt-14">
           <div
-            className="pointer-events-none font-display text-[18vw] leading-none tracking-[-0.05em] text-white/[0.035] whitespace-nowrap md:text-[13vw]"
+            className="pointer-events-none font-mono text-[10vw] leading-none tracking-[-0.03em] text-white/[0.04] whitespace-nowrap md:text-[7vw]"
             aria-hidden
           >
-            case studies &nbsp;·&nbsp; shipped &nbsp;·&nbsp;
+            <span className="text-[var(--color-accent-500)]/40">//</span> case_studies &nbsp;&nbsp;<span className="text-[var(--color-accent-500)]/40">//</span> client_work &nbsp;&nbsp;<span className="text-[var(--color-accent-500)]/40">//</span> shipped
           </div>
         </motion.div>
 

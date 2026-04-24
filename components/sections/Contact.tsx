@@ -5,19 +5,28 @@ import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { SectionLabel } from "./About";
+import { CopyButton } from "@/components/interactive/CopyButton";
 
-const LINKS = [
+const LINKS: {
+  label: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  note: string;
+  copy?: string;
+}[] = [
   {
     label: "m.wiskow96@gmail.com",
     href: "mailto:m.wiskow96@gmail.com",
     icon: Mail,
     note: "Mail — Antwort meist in 24h",
+    copy: "m.wiskow96@gmail.com",
   },
   {
     label: "github.com/m8rzel",
     href: "https://github.com/m8rzel",
     icon: Github,
     note: "GitHub — Code, Experimente, OSS",
+    copy: "github.com/m8rzel",
   },
   {
     label: "LinkedIn",
@@ -103,23 +112,29 @@ function ContactLink({
   href,
   icon: Icon,
   note,
+  copy,
 }: {
   label: string;
   href: string;
   icon: React.ComponentType<{ className?: string }>;
   note: string;
+  copy?: string;
 }) {
   const external = href.startsWith("http");
   return (
-    <motion.a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
+    <motion.div
       whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 280, damping: 22 }}
-      className="group flex items-center justify-between gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.015] p-6 backdrop-blur-sm transition-all hover:border-[var(--color-accent-500)]/40 hover:bg-[var(--color-accent-500)]/[0.03] md:p-7"
+      className="group relative flex items-center justify-between gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.015] p-6 backdrop-blur-sm transition-all hover:border-[var(--color-accent-500)]/40 hover:bg-[var(--color-accent-500)]/[0.03] md:p-7"
     >
-      <div className="flex min-w-0 items-center gap-5">
+      <a
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        className="absolute inset-0 z-10 rounded-2xl"
+        aria-label={`${label} öffnen`}
+      />
+      <div className="relative z-20 flex min-w-0 items-center gap-5 pointer-events-none">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] transition-colors group-hover:border-[var(--color-accent-500)]/40 group-hover:bg-[var(--color-accent-500)]/[0.08]">
           <Icon className="h-5 w-5 text-white/80 transition-colors group-hover:text-[var(--color-accent-500)]" />
         </div>
@@ -130,7 +145,10 @@ function ContactLink({
           <div className="mt-1 font-mono text-xs text-white/45">{note}</div>
         </div>
       </div>
-      <ArrowUpRight className="h-5 w-5 shrink-0 text-white/30 transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white" />
-    </motion.a>
+      <div className="relative z-20 flex shrink-0 items-center gap-2">
+        {copy && <CopyButton text={copy} size="sm" />}
+        <ArrowUpRight className="h-5 w-5 text-white/30 transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white pointer-events-none" />
+      </div>
+    </motion.div>
   );
 }

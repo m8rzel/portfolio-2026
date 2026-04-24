@@ -3,6 +3,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
+import { Terminal, TerminalLine } from "@/components/code/Terminal";
+import { TypewriterLines } from "@/components/code/Typewriter";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -92,12 +94,37 @@ export function Hero() {
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </a>
           <a
-            href="#work"
+            href="#products"
             className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-7 py-3.5 font-mono text-sm text-white/80 backdrop-blur-md transition-all hover:border-white/30 hover:bg-white/[0.05] hover:text-white"
           >
             <span>Arbeit ansehen</span>
             <span aria-hidden className="transition-transform group-hover:translate-x-1">↓</span>
           </a>
+        </motion.div>
+
+        {/* Live Terminal */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE, delay: 1.2 }}
+          className="mt-12 max-w-2xl"
+        >
+          <Terminal title="marcel@dev ~ %" accent>
+            <TypewriterLines
+              speed={22}
+              lineDelay={200}
+              startDelay={1600}
+              lines={[
+                "$ whoami",
+                "→ marcel wiskow · fullstack developer",
+                "$ cat skills.json",
+                '  { "years": 9, "ai": true, "ships": "fast" }',
+                "$ status --current",
+                "→ building @thenotperfect · available for q3_2026",
+              ]}
+              lineClassName="whitespace-pre"
+            />
+          </Terminal>
         </motion.div>
       </motion.div>
 

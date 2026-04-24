@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Counter } from "@/components/motion/Counter";
+import { CodeBlock, t } from "@/components/code/CodeBlock";
 
 const STATS = [
   { value: 9, suffix: "+", label: "Jahre Entwicklungs­erfahrung" },
@@ -36,9 +37,9 @@ export function About() {
         <motion.h2
           id="about-heading"
           style={{ x }}
-          className="pointer-events-none mt-6 font-display text-[14vw] leading-[0.9] tracking-[-0.04em] text-white/[0.04] whitespace-nowrap md:text-[10vw]"
+          className="pointer-events-none mt-6 font-mono text-[10vw] leading-none tracking-[-0.03em] text-white/[0.045] whitespace-nowrap md:text-[7vw]"
         >
-          builder / shipper / thinker
+          <span className="text-[var(--color-accent-500)]/40">/*</span> builder · shipper · thinker <span className="text-[var(--color-accent-500)]/40">*/</span>
         </motion.h2>
 
         <div className="mt-16 grid gap-16 lg:grid-cols-12">
@@ -108,6 +109,56 @@ export function About() {
             </FadeIn>
           </div>
         </div>
+
+        {/* Technical self-portrait as a code block */}
+        <FadeIn>
+          <div className="mt-20 grid gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+                // self-portrait.ts
+              </div>
+              <p className="mt-4 font-display text-3xl leading-tight tracking-tight text-white md:text-4xl">
+                Ich, aber in TypeScript.
+              </p>
+              <p className="mt-4 text-[15px] leading-relaxed text-white/60">
+                Falls du lieber Code liest als Prosa — hier die strict-typed
+                Version. Kommentare sind echt.
+              </p>
+            </div>
+            <div className="lg:col-span-7">
+              <CodeBlock
+                filename="marcel.ts"
+                lang="ts"
+                highlightLine={9}
+                copyText={`const marcel: Developer = {
+  name: "Marcel Wiskow",
+  years_shipping: 9,
+  focus: ["ai_automation", "web", "software"] as const,
+  stack: ["next.js", "typescript", "react", "node", "claude"],
+  obsessed_with: "systems that work in 2 years",
+  available: true,
+  agency: "thenotperfect",
+  contact: () => "m.wiskow96@gmail.com",
+};`}
+              >
+                {[
+                  <>{t.k("const")} {t.w("marcel")}{t.d(":")} {t.fn("Developer")} {t.d("=")} {t.d("{")}</>,
+                  <>  {t.p("name")}{t.d(":")} {t.s('"Marcel Wiskow"')}{t.d(",")}</>,
+                  <>  {t.p("years_shipping")}{t.d(":")} {t.n(9)}{t.d(",")}</>,
+                  <>  {t.p("focus")}{t.d(":")} {t.d("[")}{t.s('"ai_automation"')}{t.d(",")} {t.s('"web"')}{t.d(",")} {t.s('"software"')}{t.d("]")} {t.k("as")} {t.fn("const")}{t.d(",")}</>,
+                  <>  {t.p("stack")}{t.d(":")} {t.d("[")}{t.s('"next.js"')}{t.d(",")} {t.s('"typescript"')}{t.d(",")} {t.s('"react"')}{t.d(",")} {t.s('"node"')}{t.d(",")} {t.s('"claude"')}{t.d("]")}{t.d(",")}</>,
+                  <>  {t.p("obsessed_with")}{t.d(":")} {t.s('"systems that work in 2 years"')}{t.d(",")}</>,
+                  <>  {t.p("available")}{t.d(":")} {t.k("true")}{t.d(",")}</>,
+                  <>  {t.p("agency")}{t.d(":")} {t.s('"thenotperfect"')}{t.d(",")}</>,
+                  <>  {t.p("contact")}{t.d(":")} {t.d("()")} {t.k("=>")} {t.s('"m.wiskow96@gmail.com"')}{t.d(",")}</>,
+                  <>{t.d("}")}{t.d(";")}</>,
+                  <>&nbsp;</>,
+                  <>{t.c("// shipping since 2016. writing code i can still read in 2028.")}</>,
+                ]}
+              </CodeBlock>
+            </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

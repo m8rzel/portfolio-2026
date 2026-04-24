@@ -12,6 +12,8 @@ type Service = {
   description: string;
   bullets: string[];
   accent: string;
+  command: string;
+  output: string;
 };
 
 const SERVICES: Service[] = [
@@ -28,6 +30,8 @@ const SERVICES: Service[] = [
       "n8n, LangChain, eigene Orchestrierung",
     ],
     accent: "var(--color-accent-500)",
+    command: "$ agent run --task='process tickets'",
+    output: "→ 247 tickets routed · 0 manual touches",
   },
   {
     icon: Code2,
@@ -42,6 +46,8 @@ const SERVICES: Service[] = [
       "Core Web Vitals 100/100 als Standard",
     ],
     accent: "var(--color-electric)",
+    command: "$ lighthouse --url=marcelwiskow.de",
+    output: "→ perf 100 · a11y 100 · seo 100",
   },
   {
     icon: Boxes,
@@ -56,6 +62,8 @@ const SERVICES: Service[] = [
       "Architektur-Reviews & Refactorings",
     ],
     accent: "var(--color-accent-500)",
+    command: "$ deploy production --zero-downtime",
+    output: "→ built in 38s · shipped · live",
   },
 ];
 
@@ -154,7 +162,7 @@ function ServiceCard({ service }: { service: Service }) {
           {service.description}
         </p>
 
-        <ul className="mt-auto pt-8 space-y-2.5">
+        <ul className="mt-8 space-y-2.5">
           {service.bullets.map((b) => (
             <li
               key={b}
@@ -169,6 +177,21 @@ function ServiceCard({ service }: { service: Service }) {
             </li>
           ))}
         </ul>
+
+        {/* Mini terminal output — appears on hover, peeks when idle */}
+        <div className="mt-auto pt-8">
+          <div className="overflow-hidden rounded-lg border border-white/[0.08] bg-black/30 transition-colors group-hover:border-white/15">
+            <div className="flex items-center gap-2 border-b border-white/[0.05] px-3 py-1.5">
+              <span className="h-2 w-2 rounded-full bg-white/15" />
+              <span className="h-2 w-2 rounded-full bg-white/15" />
+              <span className="h-2 w-2 rounded-full bg-white/15" />
+            </div>
+            <div className="space-y-1 p-3 font-mono text-[11.5px]">
+              <div className="text-white/70">{service.command}</div>
+              <div style={{ color: service.accent }}>{service.output}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
